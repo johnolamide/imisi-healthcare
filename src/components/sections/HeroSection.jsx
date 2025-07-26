@@ -54,7 +54,10 @@ const HeroSection = () => {
 								className="space-y-6"
 							>
 								<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-									Prompt and{" "}
+									<span className="text-gradient">
+										Prompt
+									</span>{" "}
+									and{" "}
 									<span className="text-gradient">
 										Personalized
 									</span>{" "}

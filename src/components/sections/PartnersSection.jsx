@@ -5,23 +5,33 @@ const PartnersSection = () => {
   const partners = [
     {
       name: 'AWS Startups',
-      logo: 'https://via.placeholder.com/200x80?text=AWS+Startups',
+      logo: '/aws-startups-logo.png',
       description: 'Cloud infrastructure and startup support',
     },
     {
       name: 'Biodock',
-      logo: 'https://via.placeholder.com/200x80?text=Biodock',
+      logo: '/biodock-logo.png',
       description: 'Biotechnology innovation platform',
     },
     {
       name: 'Datamellon',
-      logo: 'https://via.placeholder.com/200x80?text=Datamellon',
-      description: 'Data analytics and AI solutions',
+      logo: '/datamellon-logo.png',
+      description: 'AI, Data and Cloud Innovations',
     },
     {
       name: 'SingleStore',
-      logo: 'https://via.placeholder.com/200x80?text=SingleStore',
+      logo: '/singlestore-logo.png',
       description: 'Real-time database platform',
+    },
+    {
+      name: 'Lisk',
+      logo: '/lisk-logo.png',
+      description: 'Blockchain application platform',
+    },
+    {
+      name: 'CV VC',
+      logo: '/cv-vc-logo.png',
+      description: 'Venture capital firm focused on blockchain technology',
     },
   ];
 
@@ -77,7 +87,7 @@ const PartnersSection = () => {
                     <img
                       src={partner.logo}
                       alt={partner.name}
-                      className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                      className="max-w-full max-h-full object-contain transition-all duration-300"
                     />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-2">{partner.name}</h3>
