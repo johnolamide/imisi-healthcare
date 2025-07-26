@@ -3,23 +3,27 @@
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn package manager
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone git@github.com-johnolamide:johnolamide/imisi-healthcare.git
 cd imisi-healthcare
 ```
 
 2. Switch to the dev branch:
+
 ```bash
 git checkout dev
 ```
 
 3. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -27,6 +31,7 @@ yarn install
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 # or
@@ -56,17 +61,20 @@ src/
 ## Key Features
 
 ### Responsive Design
+
 - Mobile-first approach
 - Responsive breakpoints for all devices
 - Touch-friendly interactions
 
 ### Smooth Animations
+
 - Framer Motion for page transitions
 - Scroll-triggered animations
 - Interactive hover effects
 - Loading animations
 
 ### Modern Tech Stack
+
 - **React 18** with functional components and hooks
 - **Vite** for fast development and building
 - **TailwindCSS** for utility-first styling
@@ -75,6 +83,7 @@ src/
 - **Satoshi font** for typography
 
 ### Component Architecture
+
 - Modular and reusable components
 - Separated concerns (layout, sections, common)
 - Prepared for future dashboard integration
@@ -99,6 +108,7 @@ npm run lint
 ## Deployment
 
 The project is ready for deployment on platforms like:
+
 - Vercel
 - Netlify
 - AWS Amplify
@@ -107,14 +117,18 @@ The project is ready for deployment on platforms like:
 ## Future Enhancements
 
 ### Dashboard Integration
+
 The current structure is prepared for adding:
+
 - User authentication
 - Dashboard pages
 - User management
 - API integrations
 
 ### Backend Integration
+
 Ready for connecting to:
+
 - REST APIs
 - GraphQL endpoints
 - Authentication services
@@ -135,5 +149,6 @@ Ready for connecting to:
 ## Support
 
 For questions or issues, contact:
-- Email: imisihealthcare@gmail.com
+
+- Email: <imisihealthcare@gmail.com>
 - GitHub Issues: [Create an issue](https://github.com/johnolamide/imisi-healthcare/issues)
