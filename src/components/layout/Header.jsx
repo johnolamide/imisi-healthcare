@@ -46,7 +46,7 @@ const Header = () => {
 					<motion.div whileHover={{ scale: 1.05 }} className="">
 						<div className="">
 							<img
-								src="/text-logo-secondary.png"
+								src="/named-logo-secondary.png"
 								alt="Imisi HealthCARE"
 								className="w-32 h-32 md:w-40 md:h-40"
 							/>
