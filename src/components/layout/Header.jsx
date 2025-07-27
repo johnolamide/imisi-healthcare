@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 50);
+		};
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Thesis', href: '#thesis' },
-    { name: 'Contact', href: '#contact' },
-  ];
+	const navItems = [
+		{ name: "Home", href: "#home" },
+		{ name: "About", href: "#about" },
+		{ name: "Thesis", href: "#thesis" },
+		{ name: "Contact", href: "#contact" },
+	];
 
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileMenuOpen(false);
-  };
+	const scrollToSection = (href) => {
+		const element = document.querySelector(href);
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
+		setIsMobileMenuOpen(false);
+	};
 
-  return (
+	return (
 		<motion.header
 			initial={{ y: -100 }}
 			animate={{ y: 0 }}
@@ -72,8 +72,10 @@ const Header = () => {
 
 					{/* Join Button & Mobile Menu */}
 					<div className="flex items-center space-x-4">
-						<motion.button
-							onClick={() => scrollToSection("#home")}
+						<motion.a
+							href="https://www.imisihealthcare.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="btn-primary hidden sm:block"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
@@ -81,8 +83,8 @@ const Header = () => {
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ delay: 0.4 }}
 						>
-							Join Waitlist
-						</motion.button>
+							Try
+						</motion.a>
 
 						{/* Mobile Menu Button */}
 						<button
@@ -147,12 +149,14 @@ const Header = () => {
 									</motion.button>
 								))}
 								<div className="px-4 pt-4 border-t border-gray-200">
-									<button
-										onClick={() => scrollToSection("#home")}
-										className="w-full btn-primary"
+									<a
+										href="https://www.imisihealthcare.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="w-full btn-primary block text-center"
 									>
-										Join Waitlist
-									</button>
+										Try
+									</a>
 								</div>
 							</div>
 						</motion.div>
@@ -160,7 +164,7 @@ const Header = () => {
 				</AnimatePresence>
 			</div>
 		</motion.header>
-  );
+	);
 };
 
 export default Header;
