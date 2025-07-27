@@ -73,7 +73,7 @@ const Header = () => {
 					{/* Join Button & Mobile Menu */}
 					<div className="flex items-center space-x-4">
 						<motion.a
-							href="https://www.imisihealthcare.com"
+							href="https://findrr.replit.app/login"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="btn-primary hidden sm:block"
@@ -150,7 +150,7 @@ const Header = () => {
 								))}
 								<div className="px-4 pt-4 border-t border-gray-200">
 									<a
-										href="https://www.imisihealthcare.com"
+										href="https://findrr.replit.app/login"
 										target="_blank"
 										rel="noopener noreferrer"
 										className="w-full btn-primary block text-center"
