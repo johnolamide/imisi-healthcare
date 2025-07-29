@@ -12,7 +12,7 @@ const GOOGLE_SHEETS_CONFIG = {
 	// Set to true when you have configured the URL above
 	enabled: true,
 	// Use proxy in development only
-	useProxy: true, // Only used in development
+	useProxy: import.meta.env.DEV, // Only used in development
 };
 
 /**
@@ -61,11 +61,11 @@ export const submitToGoogleSheets = async (formData) => {
 		console.log('Production mode: using direct Google Apps Script URL');
 	}
 
-	console.log("Submitting to Google Sheets:", {
+	console.log("Preparing to submit to Google Sheets:", {
 		url: submitUrl,
 		isDevelopment,
 		useProxy: GOOGLE_SHEETS_CONFIG.useProxy,
-		formData: formData,
+		formData
 	});
 
 	try {
@@ -79,9 +79,9 @@ export const submitToGoogleSheets = async (formData) => {
 
 		console.log("Request body:", requestBody);
 
+		// Make the request with proper headers
 		const response = await fetch(submitUrl, {
 			method: "POST",
-			mode: "cors",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -108,25 +108,25 @@ export const submitToGoogleSheets = async (formData) => {
 			numEntries: result.numEntries || 0,
 		};
 	} catch (error) {
-		console.error("Detailed error submitting to Google Sheets:", {
+		console.error("Error details during submission:", {
 			name: error.name,
 			message: error.message,
 			stack: error.stack,
 			url: submitUrl,
 		});
 
-		// Provide more specific error messages
-		if (
-			error.name === "TypeError" &&
-			error.message.includes("Failed to fetch")
-		) {
+		// Handle specific error types
+		if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
 			throw new Error(
-				"Network error: Unable to connect to Google Sheets. This might be due to:\n" +
-					"1. CORS policy restrictions\n" +
-					"2. Network connectivity issues\n" +
-					"3. Google Apps Script deployment issues\n" +
-					"4. Incorrect URL configuration\n\n" +
-					"Please check your Google Apps Script deployment settings."
+				"❌ CORS Error: Unable to connect to Google Sheets.\n\n" +
+					"This error occurs because your Google Apps Script doesn't have proper CORS headers.\n\n" +
+					"To fix this:\n" +
+					"1. Copy the updated sheet-script.gs code\n" +
+					"2. Go to script.google.com and paste the new code\n" +
+					"3. Deploy as a NEW web app (not update existing)\n" +
+					"4. Set access to 'Anyone'\n" +
+					"5. Update the URL in googleSheets.js\n\n" +
+					"If the problem persists, check your deployment settings."
 			);
 		}
 
