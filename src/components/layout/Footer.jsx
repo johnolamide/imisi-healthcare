@@ -189,7 +189,7 @@ const Footer = () => {
 						</div>
 
 						<p className="text-blue-200 text-sm">
-							© 2024 imisi HealthCARE. All rights reserved.
+							© 2025 imisi HealthCARE. All rights reserved.
 						</p>
 					</motion.div>
 				</div>
