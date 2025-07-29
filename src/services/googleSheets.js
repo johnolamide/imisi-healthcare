@@ -82,9 +82,6 @@ export const submitToGoogleSheets = async (formData) => {
 		// Make the request with proper headers
 		const response = await fetch(submitUrl, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(requestBody),
 		});
 
