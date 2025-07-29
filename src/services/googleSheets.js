@@ -5,14 +5,14 @@
 
 // Configuration - Replace with your Google Apps Script URL
 const GOOGLE_SHEETS_CONFIG = {
-	// Paste your Google Apps Script Web App URL here
+	// Paste your NEW Google Apps Script Web App URL here (after redeployment)
 	url: "https://script.google.com/macros/s/AKfycby0AXkjwXjiQoIcNETi5lspbDJlSv5pikf8WpoobpXmdV7UtrS3AD2aK2Xb7wXIC08ILQ/exec",
 	// Development proxy URL (when running locally)
 	devUrl: "/api/sheets",
 	// Set to true when you have configured the URL above
 	enabled: true,
-	// Use proxy in development
-	useProxy: true, // Set to true if you want to use the proxy
+	// Use proxy in development only
+	useProxy: true, // Only used in development
 };
 
 /**
@@ -54,6 +54,12 @@ export const submitToGoogleSheets = async (formData) => {
 		isDevelopment && GOOGLE_SHEETS_CONFIG.useProxy
 			? GOOGLE_SHEETS_CONFIG.devUrl
 			: GOOGLE_SHEETS_CONFIG.url;
+
+	// In production, always use the direct URL
+	if (!isDevelopment) {
+		// For production, make sure we're using the direct Google Apps Script URL
+		console.log('Production mode: using direct Google Apps Script URL');
+	}
 
 	console.log("Submitting to Google Sheets:", {
 		url: submitUrl,
