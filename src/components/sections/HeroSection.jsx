@@ -82,7 +82,7 @@ const HeroSection = () => {
 									onClick={() => setIsModalOpen(true)}
 									className="btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
 								>
-									Join the Waitlist
+									Partner With Us
 								</button>
 
 								<button

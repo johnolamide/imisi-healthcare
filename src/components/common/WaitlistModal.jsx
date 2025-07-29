@@ -7,7 +7,7 @@ const WaitlistModal = ({ isOpen, onClose }) => {
     fullName: '',
     email: '',
     phone: '',
-    category: 'patient',
+    category: 'stakeholder',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,7 +59,7 @@ const WaitlistModal = ({ isOpen, onClose }) => {
         // Reset form after showing success message
         setTimeout(() => {
           setIsSubmitted(false);
-          setFormData({ fullName: '', email: '', phone: '', category: 'patient' });
+          setFormData({ fullName: '', email: '', phone: '', category: 'stakeholder' });
           setError('');
           setEmailDomain('');
           setIsPrivateDomain(false);
@@ -80,7 +80,7 @@ const WaitlistModal = ({ isOpen, onClose }) => {
 				fullName: "",
 				email: "",
 				phone: "",
-				category: "patient",
+				category: "stakeholder",
 			});
 			setError("");
 			setEmailDomain('');
@@ -204,14 +204,12 @@ const WaitlistModal = ({ isOpen, onClose }) => {
                           <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          <span>🎓 Organizational email detected - You'll get thesis access!</span>
                         </div>
                       ) : (
                         <div className="flex items-center text-blue-600">
                           <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          <span>📧 Personal email detected</span>
                         </div>
                       )}
                     </div>
@@ -246,9 +244,8 @@ const WaitlistModal = ({ isOpen, onClose }) => {
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                   >
-                    <option value="patient">Patient</option>
-                    <option value="provider">Healthcare Provider</option>
-                    <option value="facility">Healthcare Facility</option>
+                    <option value="angel investor">Angel Investor</option>
+                    <option value="limited partner">Limited Partner</option>
                     <option value="stakeholder">Stakeholder</option>
                   </select>
                 </div>
