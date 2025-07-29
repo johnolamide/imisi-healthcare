@@ -24,37 +24,44 @@
 
 /**
  * Helper function to add CORS headers to any response
+ * This is the CRITICAL function for fixing CORS issues
  */
 function addCorsHeaders(response) {
-	response.setHeader("Access-Control-Allow-Origin", "*");
-	response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-	response.setHeader(
-		"Access-Control-Allow-Headers",
-		"Content-Type, Authorization"
-	);
-	response.setHeader("Access-Control-Allow-Credentials", "false");
-	response.setHeader("Access-Control-Max-Age", "3600");
-	return response;
+	return response
+		.setHeader('Access-Control-Allow-Origin', '*')
+		.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+		.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+		.setHeader('Access-Control-Max-Age', '3600');
 }
 
 /**
- * Handle POST requests (form submissions) and OPTIONS preflight
+ * Handle OPTIONS requests (CORS preflight) - CRITICAL for CORS
+ * This function MUST exist and be properly configured
+ */
+function doOptions(e) {
+	console.log('Handling OPTIONS preflight request');
+	const response = ContentService
+		.createTextOutput('')
+		.setMimeType(ContentService.MimeType.TEXT);
+	return addCorsHeaders(response);
+}
+
+/**
+ * Handle POST requests (form submissions)
  */
 function doPost(e) {
-	// Handle OPTIONS preflight request
-	if (!e || !e.postData) {
-		// This is likely an OPTIONS request
-		var response = ContentService.createTextOutput("").setMimeType(
-			ContentService.MimeType.JSON
-		);
-		return addCorsHeaders(response);
-	}
 	try {
+		// Ensure we have post data
+		if (!e || !e.postData || !e.postData.contents) {
+			throw new Error('No post data received');
+		}
+		
 		// Log the incoming request for debugging
-		console.log("Received POST request:", e);
+		console.log('Received POST request');
+		
 		// Parse the incoming JSON data
 		const data = JSON.parse(e.postData.contents);
-		console.log("Parsed data:", data);
+		console.log('Parsed data:', data);
 		// Get the active sheet
 		const sheet = SpreadsheetApp.getActiveSheet();
 		const lastRow = sheet.getLastRow();
@@ -161,6 +168,36 @@ function doGet() {
 		).setMimeType(ContentService.MimeType.JSON);
 		return addCorsHeaders(errorResponse);
 	}
+}
+
+/**
+ * Test CORS headers - Run this to verify CORS is working
+ */
+function testCorsHeaders() {
+	console.log('Testing CORS headers...');
+	
+	// Test OPTIONS request
+	const optionsResult = doOptions();
+	console.log('OPTIONS response:', optionsResult.getContent());
+	
+	// Test POST request
+	const testData = {
+		fullName: "CORS Test User",
+		email: "cors-test@example.com",
+		phone: "+1234567890",
+		category: "patient",
+	};
+
+	const mockEvent = {
+		postData: {
+			contents: JSON.stringify(testData),
+		},
+	};
+
+	const postResult = doPost(mockEvent);
+	console.log('POST response:', postResult.getContent());
+	
+	console.log('CORS test completed. Check the execution transcript for headers.');
 }
 
 /**

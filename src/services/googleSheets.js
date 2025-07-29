@@ -6,7 +6,7 @@
 // Configuration - Replace with your Google Apps Script URL
 const GOOGLE_SHEETS_CONFIG = {
 	// Paste your NEW Google Apps Script Web App URL here (after redeployment)
-	url: "https://script.google.com/macros/s/AKfycbyjVn_-MCMwz_CuYDNq3elJg6ViSJTeGRoJPx46fvKbsu-GG-z9EcV1dC_V6Rp6Dspw/exec",
+	url: "https://script.google.com/macros/s/AKfycbytOArQAjSgI7zAnHIgMR0SOYJkVVydlMDOp313dwfHrIJh8xJdpe11Pr1YiWJKsuTS/exec",
 	// Development proxy URL (when running locally)
 	devUrl: "/api/sheets",
 	// Set to true when you have configured the URL above
@@ -58,14 +58,14 @@ export const submitToGoogleSheets = async (formData) => {
 	// In production, always use the direct URL
 	if (!isDevelopment) {
 		// For production, make sure we're using the direct Google Apps Script URL
-		console.log('Production mode: using direct Google Apps Script URL');
+		console.log("Production mode: using direct Google Apps Script URL");
 	}
 
 	console.log("Preparing to submit to Google Sheets:", {
 		url: submitUrl,
 		isDevelopment,
 		useProxy: GOOGLE_SHEETS_CONFIG.useProxy,
-		formData
+		formData,
 	});
 
 	try {
@@ -116,7 +116,10 @@ export const submitToGoogleSheets = async (formData) => {
 		});
 
 		// Handle specific error types
-		if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
+		if (
+			error.name === "TypeError" &&
+			error.message.includes("Failed to fetch")
+		) {
 			throw new Error(
 				"❌ CORS Error: Unable to connect to Google Sheets.\n\n" +
 					"This error occurs because your Google Apps Script doesn't have proper CORS headers.\n\n" +
