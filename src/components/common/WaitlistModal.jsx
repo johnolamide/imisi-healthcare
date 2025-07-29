@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { submitToGoogleSheets } from '../../services/googleSheets';
 
 const WaitlistModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -10,23 +11,36 @@ const WaitlistModal = ({ isOpen, onClose }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after showing success message
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ fullName: '', email: '', phone: '', category: 'patient' });
-      onClose();
-    }, 2000);
+    try {
+      // Submit to Google Sheets
+      const result = await submitToGoogleSheets(formData);
+      
+      if (result.success) {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        
+        // Reset form after showing success message
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ fullName: '', email: '', phone: '', category: 'patient' });
+          setError('');
+          onClose();
+        }, 3000);
+      } else {
+        throw new Error(result.message || 'Failed to submit form');
+      }
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setError(err.message || 'Something went wrong. Please try again.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -83,6 +97,21 @@ const WaitlistModal = ({ isOpen, onClose }) => {
                   </svg>
                 </button>
               </div>
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <p className="text-sm text-red-700">{error}</p>
+                  </div>
+                </motion.div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
