@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import WaitlistModal from '../common/WaitlistModal';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import WaitlistModal from "../common/WaitlistModal";
 
 const HeroSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-      },
-    },
-  };
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				duration: 0.8,
+				staggerChildren: 0.2,
+			},
+		},
+	};
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
+	const itemVariants = {
+		hidden: { opacity: 0, y: 30 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.6, ease: "easeOut" },
+		},
+	};
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
+	const imageVariants = {
+		hidden: { opacity: 0, scale: 0.8 },
+		visible: {
+			opacity: 1,
+			scale: 1,
+			transition: { duration: 0.8, ease: "easeOut" },
+		},
+	};
 
-  return (
+	return (
 		<>
 			<section
 				id="home"
@@ -106,7 +106,7 @@ const HeroSection = () => {
 							>
 								<div className="text-center">
 									<div className="text-2xl md:text-3xl font-bold text-primary-blue">
-										54
+										1
 									</div>
 									<div className="text-sm text-gray-600">
 										African Countries
@@ -114,7 +114,7 @@ const HeroSection = () => {
 								</div>
 								<div className="text-center">
 									<div className="text-2xl md:text-3xl font-bold text-primary-blue">
-										1.4B+
+										1k+
 									</div>
 									<div className="text-sm text-gray-600">
 										People Served
@@ -332,7 +332,7 @@ const HeroSection = () => {
 				onClose={() => setIsModalOpen(false)}
 			/>
 		</>
-  );
+	);
 };
 
 export default HeroSection;

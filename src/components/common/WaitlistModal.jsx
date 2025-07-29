@@ -12,6 +12,24 @@ const WaitlistModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [emailDomain, setEmailDomain] = useState('');
+  const [isPrivateDomain, setIsPrivateDomain] = useState(false);
+
+  // List of common public email domains
+  const publicDomains = [
+    'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com',
+    'icloud.com', 'protonmail.com', 'yandex.com', 'mail.com', 'zoho.com',
+    'live.com', 'msn.com', 'rediffmail.com', 'fastmail.com', 'gmx.com'
+  ];
+
+  // Function to check if email domain is private
+  const checkEmailDomain = (email) => {
+    const domain = email.split('@')[1]?.toLowerCase();
+    if (domain) {
+      setEmailDomain(domain);
+      setIsPrivateDomain(!publicDomains.includes(domain));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +37,19 @@ const WaitlistModal = ({ isOpen, onClose }) => {
     setError('');
     
     try {
-      // Submit to Google Sheets
+      // Check email domain before submitting
+      const domain = formData.email.split('@')[1]?.toLowerCase();
+      const isPrivateEmail = domain && !publicDomains.includes(domain);
+      
+      // If private domain, open thesis download in new tab
+      if (isPrivateEmail) {
+        window.open(
+          'https://drive.google.com/file/d/1DnZLMg-uxSgX_8WukRvoYF9TrbvvjlwQ/view?usp=drive_link',
+          '_blank'
+        );
+      }
+      
+      // Submit to Google Sheets (for both public and private domains)
       const result = await submitToGoogleSheets(formData);
       
       if (result.success) {
@@ -31,6 +61,8 @@ const WaitlistModal = ({ isOpen, onClose }) => {
           setIsSubmitted(false);
           setFormData({ fullName: '', email: '', phone: '', category: 'patient' });
           setError('');
+          setEmailDomain('');
+          setIsPrivateDomain(false);
           onClose();
         }, 3000);
       } else {
@@ -51,16 +83,24 @@ const WaitlistModal = ({ isOpen, onClose }) => {
 				category: "patient",
 			});
 			setError("");
+			setEmailDomain('');
+			setIsPrivateDomain(false);
 			onClose();
 		}, 3000);
 	}
   };
 
   const handleChange = (e) => {
-    setFormData({
+    const newFormData = {
       ...formData,
       [e.target.name]: e.target.value,
-    });
+    };
+    setFormData(newFormData);
+    
+    // Check email domain when email changes
+    if (e.target.name === 'email' && e.target.value.includes('@')) {
+      checkEmailDomain(e.target.value);
+    }
   };
 
   if (!isOpen) return null;
@@ -157,6 +197,25 @@ const WaitlistModal = ({ isOpen, onClose }) => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all"
                     placeholder="Enter your email address"
                   />
+                  {emailDomain && (
+                    <div className="mt-2 text-sm">
+                      {isPrivateDomain ? (
+                        <div className="flex items-center text-green-600">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>🎓 Organizational email detected - You'll get thesis access!</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center text-blue-600">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>📧 Personal email detected</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -204,10 +263,26 @@ const WaitlistModal = ({ isOpen, onClose }) => {
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Joining...</span>
+                      <span>{isPrivateDomain ? 'Getting Access...' : 'Joining...'}</span>
                     </>
                   ) : (
-                    <span>Join Waitlist</span>
+                    <>
+                      {isPrivateDomain && formData.email ? (
+                        <>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <span>Download Thesis & Join Waitlist</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                          </svg>
+                          <span>Join Waitlist</span>
+                        </>
+                      )}
+                    </>
                   )}
                 </motion.button>
               </form>

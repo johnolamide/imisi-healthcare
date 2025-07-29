@@ -152,7 +152,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-3xl md:text-4xl font-bold text-primary-blue mb-2"
               >
-                10+
+                2+
               </motion.div>
               <p className="text-gray-600">Healthcare Experts</p>
             </div>
@@ -164,7 +164,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-3xl md:text-4xl font-bold text-primary-blue mb-2"
               >
-                5+
+                2+
               </motion.div>
               <p className="text-gray-600">Data Scientists</p>
             </div>
@@ -176,7 +176,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="text-3xl md:text-4xl font-bold text-primary-blue mb-2"
               >
-                15+
+                3+
               </motion.div>
               <p className="text-gray-600">Engineers</p>
             </div>
@@ -188,7 +188,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-3xl md:text-4xl font-bold text-primary-blue mb-2"
               >
-                3+
+                10+
               </motion.div>
               <p className="text-gray-600">Years Experience</p>
             </div>

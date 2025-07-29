@@ -1,18 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import WaitlistModal from '../common/WaitlistModal';
 
 const ThesisSection = () => {
-  const handleDownloadThesis = () => {
-    // In a real application, this would trigger a download of the actual thesis PDF
-    // For now, we'll simulate the download action
-    const link = document.createElement('a');
-    link.href = '#'; // This would be the actual PDF URL
-    link.download = 'imisi-healthcare-thesis.pdf';
-    // link.click();
-    
-    // For demo purposes, we'll show an alert
-    alert('Thesis download feature will be implemented with actual PDF file.');
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,7 +34,8 @@ const ThesisSection = () => {
     'Real-time health monitoring',
   ];
 
-  return (
+	return (
+		<>
 		<section
 			id="thesis"
 			className="section-spacing bg-gradient-to-br from-gray-50 to-blue-50"
@@ -129,7 +121,7 @@ const ThesisSection = () => {
 							className="flex flex-col sm:flex-row gap-4"
 						>
 							<motion.button
-								onClick={handleDownloadThesis}
+								onClick={() => setIsModalOpen(true)}
 								whileHover={{ scale: 1.05, y: -2 }}
 								whileTap={{ scale: 0.95 }}
 								className="btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
@@ -144,10 +136,10 @@ const ThesisSection = () => {
 										strokeLinecap="round"
 										strokeLinejoin="round"
 										strokeWidth={2}
-										d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+										d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v-2L4.257 9.257a6 6 0 017.743-7.743M15 7L9 13v4h4l6-6M15 7v0z"
 									/>
 								</svg>
-								<span>Download Our Thesis</span>
+								<span>Get Access</span>
 							</motion.button>
 
 							<motion.button
@@ -312,6 +304,12 @@ const ThesisSection = () => {
 				</motion.div>
 			</div>
 		</section>
+		
+		<WaitlistModal
+			isOpen={isModalOpen}
+			onClose={() => setIsModalOpen(false)}
+		/>
+		</>
   );
 };
 
