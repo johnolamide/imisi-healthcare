@@ -26,14 +26,15 @@
  * Helper function to add CORS headers to any response
  */
 function addCorsHeaders(response) {
-	return response
-		.setHeader("Access-Control-Allow-Origin", "*")
-		.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		.setHeader(
-			"Access-Control-Allow-Headers",
-			"Content-Type, Authorization"
-		)
-		.setHeader("Access-Control-Allow-Credentials", "false");
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+	response.setHeader(
+		"Access-Control-Allow-Headers",
+		"Content-Type, Authorization"
+	);
+	response.setHeader("Access-Control-Allow-Credentials", "false");
+	response.setHeader("Access-Control-Max-Age", "3600");
+	return response;
 }
 
 /**
@@ -43,20 +44,10 @@ function doPost(e) {
 	// Handle OPTIONS preflight request
 	if (!e || !e.postData) {
 		// This is likely an OPTIONS request
-		var response = ContentService.createTextOutput("");
-		response.setMimeType(ContentService.MimeType.JSON);
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader(
-			"Access-Control-Allow-Methods",
-			"GET, POST, OPTIONS"
+		var response = ContentService.createTextOutput("").setMimeType(
+			ContentService.MimeType.JSON
 		);
-		response.setHeader(
-			"Access-Control-Allow-Headers",
-			"Content-Type, Authorization"
-		);
-		response.setHeader("Access-Control-Allow-Credentials", "false");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		return response;
+		return addCorsHeaders(response);
 	}
 	try {
 		// Log the incoming request for debugging
@@ -149,7 +140,6 @@ function doGet() {
 		const sheet = SpreadsheetApp.getActiveSheet();
 		const lastRow = sheet.getLastRow();
 		const numEntries = lastRow > 1 ? lastRow - 1 : 0; // Exclude header row
-
 		// Return the count of entries
 		const response = ContentService.createTextOutput(
 			JSON.stringify({
