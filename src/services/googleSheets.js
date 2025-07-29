@@ -6,7 +6,7 @@
 // Configuration - Replace with your Google Apps Script URL
 const GOOGLE_SHEETS_CONFIG = {
 	// Paste your NEW Google Apps Script Web App URL here (after redeployment)
-	url: "https://script.google.com/macros/s/AKfycbytOArQAjSgI7zAnHIgMR0SOYJkVVydlMDOp313dwfHrIJh8xJdpe11Pr1YiWJKsuTS/exec",
+	url: "https://script.google.com/macros/s/AKfycbzWIqi6_zh5MHYD8gCQy9KiqXWxylYl86eVvdTaGs0aNkEmTNy7vdlDkVd4tNGGfULn/exec",
 	// Development proxy URL (when running locally)
 	devUrl: "/api/sheets",
 	// Set to true when you have configured the URL above
