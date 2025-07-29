@@ -82,7 +82,11 @@ export const submitToGoogleSheets = async (formData) => {
 		// Make the request with proper headers
 		const response = await fetch(submitUrl, {
 			method: "POST",
-			body: JSON.stringify(requestBody),
+			headers: {
+				"Content-Type": "text/plain;charset=utf-8", // <--- IMPORTANT CHANGE
+			},
+      body: JSON.stringify(requestBody),
+      redirect: "follow", // Follow redirects if any
 		});
 
 		console.log("Response status:", response.status);
