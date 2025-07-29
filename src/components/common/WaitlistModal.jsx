@@ -37,11 +37,23 @@ const WaitlistModal = ({ isOpen, onClose }) => {
         throw new Error(result.message || 'Failed to submit form');
       }
     } catch (err) {
-      console.error('Form submission error:', err);
-      // setError(err.message || 'Something went wrong. Please try again.');
-      setIsSubmitting(false);
-      setIsSubmitted(true)
-    }
+		console.error("Form submission error:", err);
+		// setError(err.message || 'Something went wrong. Please try again.');
+		setIsSubmitting(false);
+		setIsSubmitted(true);
+		// Reset form after showing success message
+		setTimeout(() => {
+			setIsSubmitted(false);
+			setFormData({
+				fullName: "",
+				email: "",
+				phone: "",
+				category: "patient",
+			});
+			setError("");
+			onClose();
+		}, 3000);
+	}
   };
 
   const handleChange = (e) => {
