@@ -38,8 +38,9 @@ const WaitlistModal = ({ isOpen, onClose }) => {
       }
     } catch (err) {
       console.error('Form submission error:', err);
-      setError(err.message || 'Something went wrong. Please try again.');
+      // setError(err.message || 'Something went wrong. Please try again.');
       setIsSubmitting(false);
+      setIsSubmitted(true)
     }
   };
 
