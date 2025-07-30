@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import WaitlistModal from '../common/WaitlistModal';
+import ThesisDownloadModal from '../common/ThesisDownloadModal';
 
 const ThesisSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -139,7 +139,7 @@ const ThesisSection = () => {
 										d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v-2L4.257 9.257a6 6 0 017.743-7.743M15 7L9 13v4h4l6-6M15 7v0z"
 									/>
 								</svg>
-								<span>Get Access</span>
+								<span>Download Thesis</span>
 							</motion.button>
 
 							<motion.button
@@ -305,7 +305,7 @@ const ThesisSection = () => {
 			</div>
 		</section>
 		
-		<WaitlistModal
+		<ThesisDownloadModal
 			isOpen={isModalOpen}
 			onClose={() => setIsModalOpen(false)}
 		/>
